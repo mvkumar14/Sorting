@@ -9,22 +9,29 @@ def selection_sort( arr ):
 
         # smallest_index = arr.index(min(arr[i:]))
         
-        for index,j in enumerate(arr[current_index:]):
-            if j < arr[smallest_index]:
-                smallest_index = i + index
+        # I did it with enumerate
+        # for index,j in enumerate(arr[current_index:]):
+        #     if j < arr[smallest_index]:
+        #         smallest_index = i + index
+
+        # Without enumerate actually seems like a better solution
+        for j in range(current_index+1, len(arr)):
+            if arr[j] < arr[smallest_index]:
+                smallest_index = j
 
         # TO-DO: swap
-        temp = arr[i] 
-        arr[i] = arr[smallest_index]
-        arr[smallest_index] = temp
+        # temp = arr[i] 
+        # arr[i] = arr[smallest_index]
+        # arr[smallest_index] = temp
 
+        # Better method for swap
+        arr[current_index],arr[smallest_index] = arr[smallest_index], arr[current_index]
     return arr
 
 
 # TO-DO:  implement the Bubble Sort function below
 def bubble_sort( arr ):
-    clean_pass = False
-    while clean_pass == False:
+    while True:
         swap_occured = False
         for i in range(len(arr)-1):
             rhn = arr[i+1]
@@ -33,9 +40,10 @@ def bubble_sort( arr ):
                 temp = rhn
                 arr[i+1] = current
                 arr[i] = rhn
+                # 
                 swap_occured = True
         if swap_occured == False:
-            clean_pass = True
+            break
         
     # for every item in arr
         # compare current element with right hand neighbor (rhn)    
@@ -60,12 +68,14 @@ def count_sort( arr, maximum=-1 ):
     count = [0]*(maximum+1)
     for i in arr:
         count[i] += 1
+    for i in range(len(arr)):
+        count[arr[i]] += 1 
     output = []
     for index, i in enumerate(count):
         output.extend([index]*i)
     return output
 
-# you could also impliment this with a dictionary.
+# you could also impliment ^that with a dictionary.
 
 my_arr = [13,4,6,78,8,2,5,8,3]
 
